@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from markdown.extensions.toc import TocExtension
 from django.utils.text import slugify
@@ -224,3 +225,16 @@ class TagView(ListView):
     def get_queryset(self):
         tag = get_object_or_404(Tag, id=self.kwargs.get('id'))
         return super().get_queryset().filter(tag=tag).order_by('-created_time')
+
+# search/
+def search(request):
+    q = request.GET['q']
+    error_msg = ''
+
+    if not q:
+        error_msg = '查询不到相关结果，请换一个关键词！'
+        return render(request, 'blog/index.html', {'error_msg':error_msg})
+
+    post_list = Post.objects.filter(Q(title__icontains=q) | Q(body__icontains=q))
+    return render(request, 'blog/index.html', {'error_msg':error_msg,
+   'post_list':post_list})
