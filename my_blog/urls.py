@@ -20,5 +20,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/', include('blog.urls', namespace='blog')),
     path('comments', include('comments.urls', namespace='comments')),
-    path('search/', include('haystack.urls')),
 ]
