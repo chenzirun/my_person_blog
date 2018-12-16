@@ -1,5 +1,8 @@
 from django.shortcuts import render, get_object_or_404
-from blog.models import Post, Category
+from markdown.extensions.toc import TocExtension
+from django.utils.text import slugify
+
+from blog.models import Post, Category, Tag
 import markdown
 from comments.forms import CommentForm
 from django.views.generic import ListView, View, DetailView
@@ -126,12 +129,14 @@ class PostDetailView(DetailView):
     def get_object(self, queryset=None):
         post = super(PostDetailView, self).get_object(queryset=None)
 
-        post.body = markdown.markdown(post.body,
-                                      extensions=[
+        md = markdown.Markdown(extensions=[
                                           'markdown.extensions.extra',
                                           'markdown.extensions.codehilite',
                                           'markdown.extensions.toc',
+            TocExtension(slugify=slugify),
                                       ])
+        post.body = md.convert(post.body)
+        post.toc = md.toc
         return post
 
     def get_context_data(self, **kwargs):
@@ -210,3 +215,12 @@ def category(request, id):
     cate = get_object_or_404(Category, id=id)
     post_list = Post.objects.filter(category=cate).order_by('-created_time')
     return render(request, 'blog/index.html', context={'post_list': post_list})
+
+class TagView(ListView):
+    model = Post
+    template_name = 'blog/index.html'
+    context_object_name = 'post_list'
+
+    def get_queryset(self):
+        tag = get_object_or_404(Tag, id=self.kwargs.get('id'))
+        return super().get_queryset().filter(tag=tag).order_by('-created_time')

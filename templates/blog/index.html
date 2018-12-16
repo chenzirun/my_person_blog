@@ -3,10 +3,10 @@
 {% block main %}
 
                 {% for post in post_list %}
-                    <article class="post post-{{ post.id }}">
+                    <article class="post post-{{ post.pk }}">
                     <header class="entry-header">
                         <h1 class="entry-title">
-                            <a href="{% url 'blog:detail' id=post.id %}">{{ post.title }}</a>
+                            <a href="{% url 'blog:detail' pk=post.pk %}">{{ post.title }}</a>
                         </h1>
                         <div class="entry-meta">
                             <span class="post-category"><a href="{% url 'blog:category' id=post.category.id %}">{{ post.category }}</a></span>
@@ -20,7 +20,7 @@
                     <div class="entry-content clearfix">
                         <p>{{ post.body|truncatechars_html:20 }}</p>
                         <div class="read-more cl-effect-14">
-                            <a href="{% url 'blog:detail' id=post.id %}" class="more-link">阅读全文 <span class="meta-nav">→</span></a>
+                            <a href="{% url 'blog:detail' pk=post.pk %}" class="more-link">阅读全文 <span class="meta-nav">→</span></a>
                         </div>
                     </div>
                 </article>

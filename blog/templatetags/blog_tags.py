@@ -24,5 +24,5 @@ def get_category():
 
 @register.simple_tag
 def get_tag():
-    return Tag.objects.annotate(num_posts=Count('post'))
+    return Tag.objects.all()
     # 计数的时候用Tag.num_posts
