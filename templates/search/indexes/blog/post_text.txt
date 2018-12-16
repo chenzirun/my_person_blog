@@ -1,0 +1,4 @@
+{{ object.title }}
+{{ object.body }}
+{{ object.tag }}
+{{ object.category }}
