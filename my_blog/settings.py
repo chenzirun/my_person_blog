@@ -94,9 +94,9 @@ DATABASES = {
     'ENGINE': 'django.db.backends.mysql',
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         # 必须是存在的数据库名称
-        'NAME': 'test_1',
+        'NAME': '数据库名称',
         'USER':'root',
-        'PASSWORD': 'czrlh1234',
+        'PASSWORD': '你自己的密码',
         'HOST': 'localhost',
         'POST': 3306,
     }
