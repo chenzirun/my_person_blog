@@ -21,4 +21,5 @@ urlpatterns = [
     path('blog/', include('blog.urls', namespace='blog')),
     path('comments', include('comments.urls', namespace='comments')),
     path('search/', include('haystack.urls')),
+    path('contacts/', include('contacts.urls', namespace='contacts')),
 ]

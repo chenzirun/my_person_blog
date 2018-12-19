@@ -1,5 +1,6 @@
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 from markdown.extensions.toc import TocExtension
 from django.utils.text import slugify
 
@@ -238,3 +239,14 @@ def search(request):
     post_list = Post.objects.filter(Q(title__icontains=q) | Q(body__icontains=q))
     return render(request, 'blog/index.html', {'error_msg':error_msg,
    'post_list':post_list})
+
+
+def about(request):
+    return render(request, 'blog/about.html')
+
+def contact(request):
+    return render(request, 'blog/contact.html')
+
+@csrf_exempt
+def handle_contract(request):
+    pass

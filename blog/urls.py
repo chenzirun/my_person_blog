@@ -10,4 +10,6 @@ urlpatterns = [
     path('category/<int:id>', views.CategoryView.as_view(), name='category'),
     path('tag/<int:id>', views.TagView.as_view(), name='tag'),
     # path('search/', views.search, name='search'),
+    path('about', views.about, name='about'),
+    path('contact', views.contact, name='contact'),
 ]
